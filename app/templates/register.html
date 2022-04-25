@@ -1,0 +1,55 @@
+{% extends "index.html" %}
+
+{% block content %}
+    <div class="container mt-5">
+    <div class="row">
+
+
+        <div class="col-lg-9 col-mx-9 col-sm-9">
+            <h2>Registration Form</h2>
+            {% for field, errors in form.errors.items() %}
+                <span style="color:red">
+                    {{ ', '.join(errors) }}.<br>
+                </span>
+            {% endfor %}<hr>
+
+        <form class="form-horizontal" method="POST" action="">
+
+             {{ form.csrf_token() }}
+            <div class="form-group">
+                {{ form.username.label }}
+                {{ form.username(class="form-control") }}
+            </div>
+            <div class="form-group">
+            {{ form.email.label }}
+            {{ form.email(class="form-control") }}
+        </div>
+            <div class="form-group">
+                {{ form.password.label }}
+                {{ form.password(class="form-control") }}
+            </div>
+            <div class="form-group">
+                {{ form.confirm_password.label }}
+                {{ form.confirm_password(class="form-control") }}
+            </div>
+            <div class="form-group mt-3">
+                {{ form.submit(class="btn btn-primary")}}
+            </div>
+
+        </form>
+
+        <span>
+            Already Have An Account? <a href=" {{ url_for('login') }} ">SignUp</a>
+        </span>
+
+        </div>
+
+
+
+        </div>
+
+    </div>
+
+{% endblock content %}
+
+

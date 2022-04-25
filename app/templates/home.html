@@ -1,0 +1,73 @@
+{% extends "index.html" %}
+
+{% block content %}
+    
+
+    <div class="container mt-5 mb-5">
+        {% if current_user.is_authenticated %}
+            <h1 class="mt-2 "> Hello {{ current_user.username }} </h1>
+        {% endif %}
+
+        <div class="row">
+            <div class="col-lg-9 col-mx-9 col-sm-9">
+
+                {% for gist in gists.items %}
+                    <div class="alert alert-success" role="alert">
+                        <div class="d-flex flex-row bd-highlight mb-3">
+                            <div class="row">
+                                <div class="col-5">
+                                    <img class="rounded-circle" alt="..." style="width:10rem" src=" {{ url_for('static', filename='profile_pics/' + gist.author.image_file) }} " >
+                                </div>
+                                <div class="col-7 ">
+                                    <h3><a href=" {{ url_for('user_posts', username=gist.author.username) }} "> {{gist.author.username}} </a></h3> <hr>
+                                    <b> <a href=" {{ url_for('gist', gist_id = gist.id) }} " style="text-decoration:none">{{gist.title}}  </a> </b> <small>@ {{gist.date_posted.strftime('%Y-%m-%d')  }} </small>
+                                </div>
+                            </div>
+
+                        </div><hr>
+                            <div>
+                                 <p class="mb-0">{{gist.content}}.</p>
+                             </div>
+                    </div>
+                 {% endfor %}
+
+                {% for page_num in gists.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+                    {% if page_num %}
+                        {% if gists.page == page_num %}
+                            <a class="btn btn-success mb-3" href="{{ url_for('home', page=page_num ) }}">{{ page_num }}</a>
+                        {% else %}
+                            <a class="btn btn-outline-success mb-3" href="{{ url_for('home', page=page_num ) }}">{{ page_num }}</a>
+                        {% endif %}
+                    {% else %}
+                        ...
+                    {% endif %}
+                {% endfor %}
+
+
+            </div>
+
+            <div class="col-lg-3 col-mx-3">
+
+                <div class="card" style="width: 18rem;">
+                    <div class="card-header">
+                     <h2> Side Bar</h2>
+                     <p>You can add any gist of your choice</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                      <li class="list-group-item">Latest Post</li>
+                      <li class="list-group-item">Announcement</li>
+                      <li class="list-group-item">Calender</li>
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    
+
+{% endblock content %}
+
+

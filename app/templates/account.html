@@ -1,0 +1,70 @@
+{% extends "index.html" %}
+
+{% block content %}
+<h1>Hello {{ current_user.username }}</h1> <hr>
+
+
+
+<div class="container mt-5">
+     <div class="row">
+            <div class="col-lg-9 col-mx-9 col-sm-9">
+
+                <div class="card mx-auto " style="width:25rem">
+
+                    <div class="row">
+                        <div class="col">
+                            <img src=" {{ image_file }} " class="rounded-circle" alt="..." style="width:10rem">
+                        </div>
+                        <div class="col">
+                            <h1 class="card-text mt-3">{{ current_user.username }}  </h1>
+                            <p> {{ current_user.email }} </p>
+
+                        </div>
+                    </div> <hr>
+
+                    <div class="mx-auto" style="width:23rem">
+                        <p>Account Info</p>
+                        {% for field, errors in form.errors.items() %}
+                            <span style="color:red">
+                                {{ ', '.join(errors) }}.<br>
+                            </span>
+                        {% endfor %}<hr>
+
+                        <form class="form-horizontal" method="POST" action="" enctype="multipart/form-data">
+
+                            {{ form.csrf_token() }}
+                            <div class="form-group">
+                                {{ form.username.label }}
+                                {{ form.username(class="form-control") }}
+                            </div>
+                            <div class="form-group mt-1">
+                                {{ form.email.label }}
+                                {{ form.email(class="form-control") }}
+                            </div>
+                            <div class="form-group mt-1">
+                                {{ form.picture.label }}<br>
+                                {{ form.picture(class="form-control-file") }}
+                            </div>
+
+                            <div class="form-group mt-3">
+                                {{ form.submit(class="btn btn-success")}}
+                            </div>
+
+                        </form> <hr>
+
+
+                    </div>
+                    <a class="btn btn-danger" href=" {{ url_for('home') }} ">Go Back</a>
+            </div>
+
+            </div>
+
+     </div>
+
+</div><br>
+
+
+
+
+
+{% endblock content %}
